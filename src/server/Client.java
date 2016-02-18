@@ -1,43 +1,47 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 
 /**
- * Created by Hatem on 2/16/2016.
+ * Created by Hatem on 2/10/2016.
+ *
+ * A simple TCP client class.
  */
-public class Client {
-    public static void main(String[] args) {
+public class Client{
+    public static final String MSG = "http://localhost:8888/src/images/index.html/";
 
-        char[] buf = new char[1024];
+    public static void main(String[] args) {
+        int bufferSize = 1024;
+        System.out.println("Client started");
+
+        char[] buf = new char[bufferSize];
+
         Socket socket;
         BufferedReader input;
-        OutputStreamWriter output;
+        DataOutputStream  output;
 
         try {
-            socket = new Socket("194.47.123.88", 8888);
-
+            socket = new Socket("192.168.1.3", 8888);
 
 		/* Create stream for sending message */
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 		/* Create stream for receiving echoed message */
-            output = new OutputStreamWriter(socket.getOutputStream());
+            output = new DataOutputStream(socket.getOutputStream());
 
 			/* Send message*/
-                output.write("Test");
-                output.flush();
-
+            output.writeBytes(MSG);
+            output.flush();
             /* receive message */
-                String read = input.readLine();
-                System.out.println(read);
-              //  readMsg.setLength(0);                               //Emptying the StringBuffer
+            //String in = input.readLine();
+
+        output.close();
+            input.close();
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-}
 
+}

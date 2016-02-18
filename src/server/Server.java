@@ -8,7 +8,7 @@ public class Server {
     public static final int MY_PORT = 8888;
 
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(MY_PORT);           //Creating a socket for
+        ServerSocket serverSocket = new ServerSocket(MY_PORT);           //Creating a socket
         System.out.println("Started");
         Socket socket;
 
