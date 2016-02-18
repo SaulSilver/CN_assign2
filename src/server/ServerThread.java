@@ -6,9 +6,6 @@ import java.net.URL;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import java.io.File;
-import java.io.IOException;
-
 /**
  * Created by Hatem on 2/15/2016.
  */
@@ -16,7 +13,6 @@ public class ServerThread extends Thread {
 
     private Socket socket;
     private boolean fileType;
-
 
     public ServerThread(Socket clientSocket) {
         socket = clientSocket;
@@ -35,11 +31,12 @@ public class ServerThread extends Thread {
 
             String filePath = httpGetFilePath(read);
 
-            htmlContent = htmlReader("C:\\Users\\zenbook\\Dropbox\\My Files\\Linnaeus University\\4. Fourth Semester\\Computer Networks - an introduction\\Assignment 2\\CN_assign2\\images\\index.html");
+            htmlContent = htmlReader("images\\index.html");
 
            // String htmlFileContents = htmlFile(filePath);
-            FileInputStream fileName = new FileInputStream(filePath);
+           // FileInputStream fileName = new FileInputStream(filePath);
             output.writeBytes(htmlContent);           //Write the html file to the browser
+            System.out.println(htmlContent);
             output.writeBytes("");
 
             output.close();
@@ -71,26 +68,6 @@ public class ServerThread extends Thread {
         return filePath;
     }
 
-    /**
-     * A method to read an html file
-     * @param filePath
-     * @return
-     */
-    private String htmlFile(String filePath){
-        String sb = "";
-        try {
-            BufferedReader in = new BufferedReader(new FileReader("F:\\Computer Networks\\Assignment 2\\images\\index.html")); //to read from html file
-            String str = in.readLine();
-            while (str != null) {
-                sb += str;
-            }
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return sb;
-    }
-
     private String htmlReader (String filePath){
 
         try {
@@ -101,7 +78,7 @@ public class ServerThread extends Thread {
         while (reader.hasNextLine()){
             returnThis = returnThis + reader.nextLine() + "\n"; //attach all lines of text to String
         }
-
+            reader.close();
             return returnThis;
 
         } catch (IOException e) {
