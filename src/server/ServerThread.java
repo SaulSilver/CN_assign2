@@ -3,7 +3,11 @@ package server;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Scanner;
 import java.util.StringTokenizer;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Hatem on 2/15/2016.
@@ -12,6 +16,7 @@ public class ServerThread extends Thread {
 
     private Socket socket;
     private boolean fileType;
+
 
     public ServerThread(Socket clientSocket) {
         socket = clientSocket;
@@ -80,5 +85,24 @@ public class ServerThread extends Thread {
             e.printStackTrace();
         }
         return sb;
+    }
+
+    private String htmlReader (String filePath){
+
+        try {
+        File myText = new File (filePath);
+        Scanner reader = new Scanner(myText); // create scanner to 'read' text
+        String returnThis = "";
+
+        while (reader.hasNextLine()){
+            returnThis = returnThis + reader.nextLine() + "\n"; //attach all lines of text to String
+        }
+
+            return returnThis;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "ERROR MESSAGE";
     }
 }
