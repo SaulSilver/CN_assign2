@@ -25,6 +25,7 @@ public class ServerThread extends Thread {
     public void run() {
         BufferedReader input;
         DataOutputStream  output;
+        String htmlContent = "";
 
         try {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));         //Receiving from client
@@ -33,9 +34,12 @@ public class ServerThread extends Thread {
             String read = input.readLine();
 
             String filePath = httpGetFilePath(read);
+
+            htmlContent = htmlReader("C:\\Users\\zenbook\\Dropbox\\My Files\\Linnaeus University\\4. Fourth Semester\\Computer Networks - an introduction\\Assignment 2\\CN_assign2\\images\\index.html");
+
            // String htmlFileContents = htmlFile(filePath);
             FileInputStream fileName = new FileInputStream(filePath);
-            output.writeBytes("<B1>It's alive!!!!</B1>");           //Write the html file to the browser
+            output.writeBytes(htmlContent);           //Write the html file to the browser
             output.writeBytes("");
 
             output.close();
@@ -90,8 +94,8 @@ public class ServerThread extends Thread {
     private String htmlReader (String filePath){
 
         try {
-        File myText = new File (filePath);
-        Scanner reader = new Scanner(myText); // create scanner to 'read' text
+        File myHTML = new File (filePath);
+        Scanner reader = new Scanner(myHTML); // create scanner to 'read' text
         String returnThis = "";
 
         while (reader.hasNextLine()){
