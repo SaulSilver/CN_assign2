@@ -7,18 +7,17 @@ import java.io.FileNotFoundException;
  * Created by Hatem on 2/23/2016.
  */
 public class HTTPResponse {
-    int httpCode;       //e.g. 200 OK or 404 Not found
     String response;        //The whole response header
 
     public HTTPResponse(){
         response = "HTTP-Version: HTTP/1.0 ";
     }
 
-    public void formHTTPResponse(int returnCode, String filePath, char fileType) {
+    public void formHTTPResponse(int returnCode, File file, char fileType) {
         switch (returnCode) {
             case 200:
                 response += "200 OK\n";
-                getContentLength(filePath);
+                getContentLength(file);
                 getContentType(fileType);
                 break;
             case 403:
@@ -33,8 +32,7 @@ public class HTTPResponse {
         }
     }
 
-    private void getContentLength(String filePath){
-        File file = new File(filePath);
+    private void getContentLength(File file){
         response += "Content-Length: " + file.length() + "\n";
     }
 

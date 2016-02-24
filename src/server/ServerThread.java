@@ -19,9 +19,10 @@ public class ServerThread extends Thread {
         try {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));         //Receiving from client
             String read = input.readLine();
-            HTTPHandler httpHandler = new HTTPHandler();
-            httpHandler.getRequest(read, socket);
-
+            if(read != null) {
+                HTTPHandler httpHandler = new HTTPHandler();
+                httpHandler.getRequest(read, socket);
+            }
             input.close();
         } catch (Exception e) {
             e.printStackTrace();
