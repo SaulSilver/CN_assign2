@@ -34,13 +34,21 @@ public class FileHandler {
     public File checkValidity(String filePath){
         httpResponse = new HTTPResponse();
         File file = new File(filePath);
+
+        if (filePath.equals("!SERVER#500#ERROR=flag+")|| filePath.isEmpty()){
+            httpCode = INTERNAL_ERROR;
+            file = new File ("src\\500InternalServerError.html");
+        }
+
         if(!filePath.startsWith("files"))
             file = new File("src\\403Forbidden.html");
         else if(!file.exists() && httpCode != FORBIDDEN) {
             httpCode = NOT_FOUND;
             file = new File("src\\404FileNotFound.html");
+        } else{
+            httpCode = OK; //}
         }
-        else{  httpCode = OK; }
+
         return file;
     }
 
@@ -61,8 +69,9 @@ public class FileHandler {
             output.close();
             reader.close();
         } catch (IOException e) {
+            System.err.print("500 - Internal Server Error 500\n");
+            readFile(socket,this.checkValidity("!SERVER#500#ERROR=flag+"));
             e.printStackTrace();
         }
     }
-
 }
