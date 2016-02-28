@@ -46,7 +46,7 @@ public class FileHandler {
             httpCode = NOT_FOUND;
             file = new File("src\\404FileNotFound.html");
         } else{
-            httpCode = OK; //}
+            httpCode = OK;
         }
 
         return file;

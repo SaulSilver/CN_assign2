@@ -16,7 +16,7 @@ public class FolderHandler {
     public String getFolders(String folderPath) {
         String htmlFilePath = "files\\htmlFiles\\fileNames.html";
         File directory = new File(folderPath);
-        File[] foldersNames = directory.listFiles();
+        File[] foldersNames = directory.listFiles();                //an array of files in that directory
 
         FileWriter fWriter;
         BufferedWriter writer;

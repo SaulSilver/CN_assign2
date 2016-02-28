@@ -31,22 +31,22 @@ public class HTTPHandler {
      */
     private String httpGetFilePath(String url){
 
-        String tmp = url.substring(url.lastIndexOf(":") + 1, url.lastIndexOf(" "));
+        String tmp = url.substring(url.lastIndexOf(":") + 1, url.lastIndexOf(" "));     //creates the file or folder path from the URL after the colon till the last whitespace
         System.out.println(tmp);
         String filePath = null;
 
         for(int i = 0; i < tmp.length(); i++){
             char a = tmp.charAt(i);
             if( a == '/'){
-                if(tmp.endsWith("/"))
+                if(tmp.endsWith("/"))       //if the file path ends with '/', then ignore it to get the file path
                     filePath = tmp.substring(tmp.indexOf(a)+1, tmp.length()-1);
                 else filePath = tmp.substring(tmp.indexOf(a)+1);
                 break;
             }
         }
         if (filePath != null) {
-            filePath = filePath.replace('/', File.separator.charAt(0));
-            if (!filePath.contains("."))
+            filePath = filePath.replace('/', File.separator.charAt(0));     //replaces the all the '\' to '/' to be readable
+            if (!filePath.contains("."))        //to check if the directory requested in the URL is a file or folder
                 isFile = false;
         }
         System.out.println(filePath);
