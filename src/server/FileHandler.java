@@ -65,7 +65,7 @@ public class FileHandler {
             String response = httpResponse.getResponse();
 
             System.out.println(response);
-            responseWriter.print(response);
+            //responseWriter.print(response);
 
             while ((count = reader.read(buf)) >= 0)                //Write the http response body
                 output.write(buf, 0, count);

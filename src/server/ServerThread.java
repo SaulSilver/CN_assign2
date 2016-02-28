@@ -27,6 +27,7 @@ public class ServerThread extends Thread {
             }
          //   input.close();
         } catch (Exception e) {
+            System.err.print("500 - Internal Server Error 500\n");
             e.printStackTrace();
         }
     }
